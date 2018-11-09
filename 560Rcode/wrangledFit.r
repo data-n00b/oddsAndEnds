@@ -41,9 +41,9 @@ z <- z %>%  mutate(wSenti = n * perN)
 
 #Weighted Score (-1 for Negative 1 for Neutral and 2 for positive)
 
-wNegative = -1
-wPositive = 3
-wNeutral = 1
+wNegative <- -1
+wPositive <- 3
+wNeutral <- 1
 z['senMul']  <- ifelse(z$Sentiment == 'NEGATIVE', z$wSenti*wNegative, ifelse(z$Sentiment == 'POSITIVE', z$wSenti*wPositive,z$wSenti*wNeutral))
 
 
