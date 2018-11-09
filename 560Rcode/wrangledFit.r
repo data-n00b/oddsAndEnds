@@ -40,7 +40,11 @@ z <- z %>%  mutate(perN = n / sum(n)) %>%  group_by(comment_id)
 z <- z %>%  mutate(wSenti = n * perN)
 
 #Weighted Score (-1 for Negative 1 for Neutral and 2 for positive)
-z['senMul']  <- ifelse(z$Sentiment == 'NEGATIVE', z$wSenti*-1, ifelse(z$Sentiment == 'POSITIVE', z$wSenti*2,z$wSenti*1))
+
+wNegative = -1
+wPositive = 3
+wNeutral = 1
+z['senMul']  <- ifelse(z$Sentiment == 'NEGATIVE', z$wSenti*wNegative, ifelse(z$Sentiment == 'POSITIVE', z$wSenti*wPositive,z$wSenti*wNeutral))
 
 
 
@@ -121,19 +125,19 @@ ggplot() + geom_line(data = avgNPS,aes(weekNum,newNPS,color='newNPS')) +   facet
 #Weighted Score Attempt 1
 # Unused Code
 
-gg1 <- ggplot(avgSur,aes(weekNum,avgNPS))
-
-gg1 + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
-
-gg1 <- ggplot(avgSur %>% filter(Product=="T470"),aes(weekNum,avgNPS))
-
-gg1 <- gg1 + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
-
-gg <- ggplot(avgNPS,aes(weekNum,newNPS))
-
-gg + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
-
-gg <- ggplot(avgNPS %>% filter(Product=="T470"),aes(weekNum,newNPS))
-
-gg <- gg + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
+# gg1 <- ggplot(avgSur,aes(weekNum,avgNPS))
+# 
+# gg1 + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
+# 
+# gg1 <- ggplot(avgSur %>% filter(Product=="T470"),aes(weekNum,avgNPS))
+# 
+# gg1 <- gg1 + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
+# 
+# gg <- ggplot(avgNPS,aes(weekNum,newNPS))
+# 
+# gg + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
+# 
+# gg <- ggplot(avgNPS %>% filter(Product=="T470"),aes(weekNum,newNPS))
+# 
+# gg <- gg + geom_line() + facet_wrap(.~Product) + theme_minimal() + scale_x_discrete(limits=c(1:66))
 
