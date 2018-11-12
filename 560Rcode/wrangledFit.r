@@ -6,7 +6,7 @@ library(tidyverse)
 library(ggplot2)
 library(lubridate)
 
-sentiFileName <- <FILENAME>
+sentiFileName <- "sentiment_data.csv"
 lenData <- read.csv(sentiFileName, header = TRUE)
 lenData <- tbl_df(lenData)
 #lenData %>% drop_na()
@@ -25,7 +25,7 @@ lenData$Sub.category <- NULL
 numProducts <- lenData %>% group_by(Product,Business.Group) %>%  count()
 
 #Subsetting only the discussed products
-filterProducts <- <LIST OF PRODUCTS TO BE FILTERED>
+filterProducts <- c('N23 CHROME', 'X1 CARBON 2017', 'T470','X270','THINKPAD 25')
 lenData <- lenData %>% filter(Product %in% filterProducts)
 
 #Arranging by date
@@ -94,7 +94,7 @@ myNPS <- myNPS %>% group_by(Product) %>% mutate(newNPS = (((b-a) * (newScore- mi
 # and fit the model.
 #same operations on survey data to get product, nps and week number focussing on product NPS
 
-surFileName <- <FILENAME>
+surFileName <- "survey_data.csv"
 surData <- read.csv(surFileName, header = TRUE)
 surData <- tbl_df(surData)
 
